@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Productos | Spring Shop</title>
+	<style>
+		:root {
+			color-scheme: light;
+			font-family: system-ui, sans-serif;
+			color: #1f2937;
+			background: #f3f4f6;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		main {
+			max-width: 960px;
+			margin: 0 auto;
+			padding: 3rem 1.5rem;
+		}
+
+		h1 {
+			margin-bottom: 0.5rem;
+		}
+
+		.intro {
+			margin-top: 0;
+			color: #6b7280;
+		}
+
+		.products {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 1rem;
+			margin-top: 2rem;
+		}
+
+		.product {
+			padding: 1.5rem;
+			border-radius: 0.75rem;
+			background: white;
+			box-shadow: 0 1px 3px #00000012;
+		}
+
+		.product h2 {
+			margin-top: 0;
+		}
+
+		.price {
+			margin-bottom: 0;
+			font-size: 1.25rem;
+			font-weight: 700;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Nuestros productos</h1>
+		<p class="intro">Descubre los productos de Spring Shop.</p>
+		<section class="products" aria-label="Listado de productos">
+			<article class="product" th:each="product : ${products}">
+				<h2 th:text="${product.name}">Nombre del producto</h2>
+				<p th:text="${product.description}">Descripción del producto</p>
+				<p class="price">
+					<span th:text="${#numbers.formatDecimal(product.price, 1, 2)}">0,00</span> €
+				</p>
+			</article>
+		</section>
+		<p th:if="${#lists.isEmpty(products)}">No hay productos disponibles.</p>
+	</main>
+</body>
+</html>
